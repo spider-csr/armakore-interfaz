@@ -96,9 +96,9 @@
                 <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">Total Estimado</p>
                 <div id="total-price" class="text-4xl font-bold text-white mb-4 transition-all duration-300">$1,899.00</div>
                 
-                <a href="carrito.html" id="checkout-btn" class="block w-full bg-white text-black font-bold py-3.5 rounded-lg hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center">
-                    Proceder al Pago
-                </a>
+                <button type="button" id="checkout-btn" class="block w-full bg-white text-black font-bold py-3.5 rounded-lg hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] text-center">
+                    Añadir configuración al carrito
+                </button>
                 <p class="text-[10px] text-gray-500 mt-3">Envío internacional gratuito. Ensamblado en 48 horas.</p>
             </div>
         </div>
@@ -300,10 +300,54 @@
 
         function actualizarCartCount() {
             const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                cartCount.textContent = '1';
-            }
+            if (!cartCount) return;
+
+            let count = 0;
+            try {
+                const cart = JSON.parse(localStorage.getItem('armakore_cart') || '[]');
+                count = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+            } catch {}
+            cartCount.textContent = count > 99 ? '99+' : count;
+            cartCount.classList.toggle('hidden', count === 0);
         }
+
+        function añadirConfiguracionAlCarrito() {
+            const configuracion = JSON.parse(localStorage.getItem('arakore_config') || '{}');
+            const cart = JSON.parse(localStorage.getItem('armakore_cart') || '[]');
+
+            const product = {
+                name: 'ARMAKORE — Configuración personalizada',
+                price: Number(configuracion.total || PRECIO_BASE),
+                category: 'Personalización PC',
+                cpu: configuracion.nombres?.cpu || '',
+                gpu: configuracion.nombres?.gpu || '',
+                ram: configuracion.nombres?.ram || '',
+                storage: configuracion.nombres?.ssd || '',
+                configuration: configuracion.nombres || {},
+                quantity: 1
+            };
+
+            const existing = cart.find(item => item.name === product.name);
+            if (existing) {
+                existing.quantity = 1;
+                Object.assign(existing, product);
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('armakore_cart', JSON.stringify(cart));
+            actualizarCartCount();
+
+            const btn = document.getElementById('checkout-btn');
+            btn.textContent = 'Añadido al carrito ✓';
+            btn.classList.add('bg-gray-200');
+
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 650);
+        }
+
+        document.getElementById('checkout-btn')?.addEventListener('click', añadirConfiguracionAlCarrito);
 
         document.addEventListener('DOMContentLoaded', function() {
             actualizarPrecioTotal();
