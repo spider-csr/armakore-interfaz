@@ -342,7 +342,7 @@
             
             <div class="flex items-center space-x-5 shrink-0">
                 <div class="hidden lg:flex items-center bg-[#111] border border-[#222] rounded-full px-3 py-1.5 focus-within:border-gray-500 transition-colors w-48">
-                    <input type="text" placeholder="Buscar..." class="bg-transparent border-none outline-none text-xs text-white placeholder-gray-600 w-full">
+                    <input id="site-search" type="search" autocomplete="off" placeholder="Buscar..." aria-label="Buscar productos" class="bg-transparent border-none outline-none text-xs text-white placeholder-gray-600 w-full">
                     <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
                 <a href="inicio-sesion.html" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
@@ -754,143 +754,64 @@
 
     </main>
 
-    <script>
-        // Actualizar contador del carrito desde localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                const config = localStorage.getItem('arakore_config');
-                cartCount.textContent = config ? '1' : '0';
-            }
-        });
+    
+<script>
+(function () {
+    const CART_KEY = 'armakore_cart';
 
-        /* ==========================================
-           Gatito interactivo
-           ========================================== */
-        const catButton = document.getElementById('cat-button');
+    function readCart() {
+        try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+        catch { return []; }
+    }
 
-        // Maullido sintético: no necesita MP3.
-        // Se genera con Web Audio API después del gesto del usuario.
-        let catAudioContext = null;
+    function updateCartBadge() {
+        const badge = document.getElementById('cart-count');
+        if (!badge) return;
+        const count = readCart().reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.classList.toggle('hidden', count === 0);
+        badge.setAttribute('aria-label', `${count} producto${count === 1 ? '' : 's'} en el carrito`);
+    }
 
-        function playCatMeow() {
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) return;
+    window.armakoreCart = {
+        get: readCart,
+        count: () => readCart().reduce((sum, item) => sum + Number(item.quantity || 1), 0),
+        save(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartBadge();
+            window.dispatchEvent(new CustomEvent('armakore:cart-updated'));
+        },
+        add(product) {
+            const cart = readCart();
+            const existing = cart.find(item => item.name === product.name);
+            if (existing) existing.quantity = Number(existing.quantity || 1) + 1;
+            else cart.push({ ...product, quantity: 1 });
+            this.save(cart);
+        },
+        updateCartBadge
+    };
 
-                if (!catAudioContext) {
-                    catAudioContext = new AudioContext();
-                }
+    document.addEventListener('DOMContentLoaded', updateCartBadge);
+    window.addEventListener('storage', e => {
+        if (e.key === CART_KEY) updateCartBadge();
+    });
+})();
+</script>
 
-                if (catAudioContext.state === 'suspended') {
-                    catAudioContext.resume();
-                }
 
-                const now = catAudioContext.currentTime;
-                const osc = catAudioContext.createOscillator();
-                const gain = catAudioContext.createGain();
-                const filter = catAudioContext.createBiquadFilter();
 
-                osc.type = 'sine';
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(1700, now);
-                filter.Q.setValueAtTime(3, now);
 
-                // Curva de tono para simular un "miau" corto y juguetón.
-                osc.frequency.setValueAtTime(430, now);
-                osc.frequency.exponentialRampToValueAtTime(690, now + 0.10);
-                osc.frequency.exponentialRampToValueAtTime(520, now + 0.25);
-                osc.frequency.exponentialRampToValueAtTime(360, now + 0.42);
-
-                gain.gain.setValueAtTime(0.0001, now);
-                gain.gain.exponentialRampToValueAtTime(0.16, now + 0.035);
-                gain.gain.exponentialRampToValueAtTime(0.10, now + 0.18);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.46);
-
-                osc.connect(filter);
-                filter.connect(gain);
-                gain.connect(catAudioContext.destination);
-
-                osc.start(now);
-                osc.stop(now + 0.48);
-            } catch (error) {
-                // El sonido es opcional; la animación continúa aunque el navegador lo bloquee.
-                console.debug('Audio del gatito no disponible:', error);
-            }
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('site-search');
+    if (!input) return;
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && input.value.trim()) {
+            window.location.href = `laptops.html?q=${encodeURIComponent(input.value.trim())}`;
         }
-
-        if (catButton) {
-            catButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-
-                // Reinicia la animación para que funcione en cada click.
-                playCatMeow();
-                catButton.classList.remove('playing');
-                void catButton.offsetWidth;
-                catButton.classList.add('playing');
-
-                setTimeout(() => {
-                    catButton.classList.remove('playing');
-                }, 900);
-            });
-        }
-
-        /* ==========================================
-           Interacción del mouse: micro-diseños blancos
-           ========================================== */
-        let lastParticleTime = 0;
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('pointermove', function(event) {
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-
-            const now = performance.now();
-
-            // No generar demasiados elementos: mantiene la animación ligera.
-            if (now - lastParticleTime < 55) return;
-            lastParticleTime = now;
-
-            const particle = document.createElement('span');
-            particle.className = 'cursor-orb';
-
-            const offsetX = (Math.random() - 0.5) * 16;
-            const offsetY = (Math.random() - 0.5) * 16;
-
-            particle.style.left = `${mouseX + offsetX}px`;
-            particle.style.top = `${mouseY + offsetY}px`;
-
-            // Pequeñas variaciones para que el patrón no sea totalmente repetitivo.
-            const size = 5 + Math.random() * 5;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 45}deg)`;
-
-            document.body.appendChild(particle);
-
-            setTimeout(() => particle.remove(), 700);
-        });
-
-        /* ==========================================
-           Click en espacio vacío: pulso blanco pequeño
-           No interfiere con enlaces, botones o controles.
-           ========================================== */
-        document.addEventListener('pointerdown', function(event) {
-            const clickedInteractive =
-                event.target.closest('a, button, input, textarea, select, label');
-
-            if (clickedInteractive) return;
-
-            const pulse = document.createElement('span');
-            pulse.className = 'cursor-click';
-            pulse.style.left = `${event.clientX}px`;
-            pulse.style.top = `${event.clientY}px`;
-
-            document.body.appendChild(pulse);
-            setTimeout(() => pulse.remove(), 550);
-        });
-    </script>
+    });
+});
+</script>
 
 </body>
 </html>
