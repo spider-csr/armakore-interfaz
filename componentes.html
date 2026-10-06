@@ -88,18 +88,18 @@
         
         <!-- Filtros -->
         <div class="flex flex-wrap justify-center gap-3 mb-12">
-            <button class="bg-white text-black text-xs font-bold px-4 py-2 rounded-full">Todos</button>
-            <button class="bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">Memoria RAM</button>
-            <button class="bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">Almacenamiento</button>
-            <button class="bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">Módulos de Puertos</button>
-            <button class="bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">Baterías</button>
+            <button class="component-filter bg-white text-black text-xs font-bold px-4 py-2 rounded-full" data-filter="all">Todos</button>
+            <button class="component-filter bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors" data-filter="ram">Memoria RAM</button>
+            <button class="component-filter bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors" data-filter="storage">Almacenamiento</button>
+            <button class="component-filter bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors" data-filter="ports">Módulos de Puertos</button>
+            <button class="component-filter bg-[#111] border border-[#333] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-full transition-colors" data-filter="battery">Baterías</button>
         </div>
 
         <!-- Grid de Componentes -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
             <!-- Componente 1: Módulo RAM -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group">
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group" data-component-category="ram">
                 <div class="w-full h-40 bg-[#050505] rounded-lg mb-6 flex items-center justify-center border border-[#111] relative overflow-hidden">
                     <div class="absolute inset-0 bg-purple-900/5 group-hover:bg-purple-900/20 transition-colors"></div>
                     <!-- Dibujo CSS RAM -->
@@ -117,12 +117,13 @@
                 <p class="text-xs text-gray-500 mb-4">5600MHz / Latencia ultra baja</p>
                 <div class="flex items-center justify-between mt-auto">
                     <span class="text-lg font-bold text-white">$149</span>
-                    <button class="text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Añadir</button>
+                    <button class="component-add text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors"
+                            data-name="Módulo DDR5 32GB" data-price="149" data-category="Memoria RAM">Añadir</button>
                 </div>
             </div>
 
             <!-- Componente 2: Almacenamiento SSD -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group">
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group" data-component-category="storage">
                 <div class="w-full h-40 bg-[#050505] rounded-lg mb-6 flex items-center justify-center border border-[#111] relative overflow-hidden">
                     <div class="absolute inset-0 bg-blue-900/5 group-hover:bg-blue-900/20 transition-colors"></div>
                     <!-- Dibujo CSS SSD M.2 -->
@@ -140,12 +141,13 @@
                 <p class="text-xs text-gray-500 mb-4">7300 MB/s Lectura / 6800 MB/s Escritura</p>
                 <div class="flex items-center justify-between mt-auto">
                     <span class="text-lg font-bold text-white">$189</span>
-                    <button class="text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Añadir</button>
+                    <button class="component-add text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors"
+                            data-name="NVMe PCIe 4.0 2TB" data-price="189" data-category="Almacenamiento">Añadir</button>
                 </div>
             </div>
 
             <!-- Componente 3: Módulo de Puerto (Expansión) -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group">
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group" data-component-category="ports">
                 <div class="w-full h-40 bg-[#050505] rounded-lg mb-6 flex items-center justify-center border border-[#111] relative overflow-hidden">
                     <div class="absolute inset-0 bg-gray-600/5 group-hover:bg-gray-600/20 transition-colors"></div>
                     <!-- Dibujo CSS Módulo Expansión -->
@@ -159,12 +161,13 @@
                 <p class="text-xs text-gray-500 mb-4">Carga de 100W / Transferencia 40Gbps</p>
                 <div class="flex items-center justify-between mt-auto">
                     <span class="text-lg font-bold text-white">$19</span>
-                    <button class="text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Añadir</button>
+                    <button class="component-add text-xs bg-white text-black font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors"
+                            data-name="Módulo USB-C Gen 4" data-price="19" data-category="Módulo de Puertos">Añadir</button>
                 </div>
             </div>
 
             <!-- Componente 4: Batería -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group">
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 group" data-component-category="battery">
                 <div class="w-full h-40 bg-[#050505] rounded-lg mb-6 flex items-center justify-center border border-[#111] relative overflow-hidden">
                     <div class="absolute inset-0 bg-green-900/5 group-hover:bg-green-900/20 transition-colors"></div>
                     <!-- Dibujo CSS Batería -->
@@ -189,6 +192,95 @@
 
         </div>
     </main>
+
+
+<script>
+(function () {
+    const CART_KEY = 'armakore_cart';
+
+    function readCart() {
+        try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+        catch { return []; }
+    }
+
+    function updateCartBadge() {
+        const badge = document.getElementById('cart-count');
+        if (!badge) return;
+        const count = readCart().reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.classList.toggle('hidden', count === 0);
+        badge.setAttribute('aria-label', `${count} producto${count === 1 ? '' : 's'} en el carrito`);
+    }
+
+    window.armakoreCart = {
+        get: readCart,
+        count: () => readCart().reduce((sum, item) => sum + Number(item.quantity || 1), 0),
+        save(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartBadge();
+            window.dispatchEvent(new CustomEvent('armakore:cart-updated'));
+        },
+        add(product) {
+            const cart = readCart();
+            const existing = cart.find(item => item.name === product.name);
+            if (existing) existing.quantity = Number(existing.quantity || 1) + 1;
+            else cart.push({ ...product, quantity: 1 });
+            this.save(cart);
+        },
+        updateCartBadge
+    };
+
+    document.addEventListener('DOMContentLoaded', updateCartBadge);
+    window.addEventListener('storage', e => {
+        if (e.key === CART_KEY) updateCartBadge();
+    });
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = [...document.querySelectorAll('[data-component-category]')];
+    const filters = [...document.querySelectorAll('.component-filter')];
+
+    filters.forEach(filter => filter.addEventListener('click', () => {
+        const value = filter.dataset.filter;
+        filters.forEach(btn => {
+            btn.classList.remove('bg-white','text-black');
+            btn.classList.add('bg-[#111]','text-gray-400');
+        });
+        filter.classList.add('bg-white','text-black');
+        filter.classList.remove('bg-[#111]','text-gray-400');
+
+        cards.forEach(card => {
+            card.classList.toggle('hidden', value !== 'all' && card.dataset.componentCategory !== value);
+        });
+    }));
+
+    document.querySelectorAll('.component-add').forEach(button => {
+        button.addEventListener('click', () => {
+            const product = {
+                name: button.dataset.name,
+                price: Number(button.dataset.price),
+                category: button.dataset.category,
+                quantity: 1
+            };
+            const cart = window.armakoreCart.get();
+            const existing = cart.find(item => item.name === product.name);
+            if (existing) existing.quantity = Number(existing.quantity || 1) + 1;
+            else cart.push(product);
+            window.armakoreCart.save(cart);
+
+            const original = button.textContent;
+            button.textContent = 'Añadido ✓';
+            button.classList.add('scale-105');
+            setTimeout(() => {
+                button.textContent = original;
+                button.classList.remove('scale-105');
+            }, 900);
+        });
+    });
+});
+</script>
 
 </body>
 </html>
