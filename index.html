@@ -176,7 +176,144 @@
             }
         }
 
-</style>
+
+        /* Gatito SVG: dibujado completamente con código */
+        .cat-button {
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cat-character {
+            transform-origin: 50% 75%;
+            transition: filter 0.3s ease;
+        }
+
+        .cat-button:hover .cat-character {
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.55));
+        }
+
+        .cat-ear {
+            transform-box: fill-box;
+            transform-origin: center bottom;
+        }
+
+        .cat-tail {
+            transform-box: fill-box;
+            transform-origin: left center;
+        }
+
+        .cat-eye {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        .cat-paw-left,
+        .cat-paw-right {
+            transform-box: fill-box;
+            transform-origin: center top;
+        }
+
+        .cat-button.playing .cat-character {
+            animation: catBounce 0.85s cubic-bezier(.34,1.56,.64,1);
+        }
+
+        .cat-button.playing .cat-tail {
+            animation: catTail 0.85s ease-in-out;
+        }
+
+        .cat-button.playing .cat-ear-left {
+            animation: catEarLeft 0.85s ease-in-out;
+        }
+
+        .cat-button.playing .cat-ear-right {
+            animation: catEarRight 0.85s ease-in-out;
+        }
+
+        .cat-button.playing .cat-eye {
+            animation: catBlink 0.85s ease-in-out;
+        }
+
+        .cat-button.playing .cat-paw-left {
+            animation: catPawLeft 0.85s ease-in-out;
+        }
+
+        .cat-button.playing .cat-paw-right {
+            animation: catPawRight 0.85s ease-in-out;
+        }
+
+        .cat-spark {
+            opacity: 0;
+        }
+
+        .cat-button.playing .cat-spark {
+            animation: catSpark 0.75s ease-out forwards;
+        }
+
+        @keyframes catBounce {
+            0%   { transform: translateY(0) rotate(0deg) scale(1); }
+            22%  { transform: translateY(-8px) rotate(-3deg) scale(1.02); }
+            45%  { transform: translateY(0) rotate(3deg) scale(0.99); }
+            68%  { transform: translateY(-4px) rotate(-2deg) scale(1.01); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @keyframes catTail {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(13deg); }
+            50% { transform: rotate(-10deg); }
+            75% { transform: rotate(9deg); }
+        }
+
+        @keyframes catEarLeft {
+            0%, 100% { transform: rotate(0deg); }
+            38% { transform: rotate(-10deg); }
+            58% { transform: rotate(5deg); }
+        }
+
+        @keyframes catEarRight {
+            0%, 100% { transform: rotate(0deg); }
+            38% { transform: rotate(10deg); }
+            58% { transform: rotate(-5deg); }
+        }
+
+        @keyframes catBlink {
+            0%, 42%, 100% { transform: scaleY(1); }
+            48%, 55% { transform: scaleY(0.12); }
+        }
+
+        @keyframes catPawLeft {
+            0%, 100% { transform: rotate(0deg); }
+            30% { transform: rotate(-12deg) translateY(-2px); }
+            55% { transform: rotate(4deg); }
+        }
+
+        @keyframes catPawRight {
+            0%, 100% { transform: rotate(0deg); }
+            34% { transform: rotate(12deg) translateY(-2px); }
+            58% { transform: rotate(-4deg); }
+        }
+
+        @keyframes catSpark {
+            0%   { opacity: 0; transform: scale(0.2); }
+            25%  { opacity: 0.95; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.35) translateY(-3px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cat-button.playing .cat-character,
+            .cat-button.playing .cat-tail,
+            .cat-button.playing .cat-ear-left,
+            .cat-button.playing .cat-ear-right,
+            .cat-button.playing .cat-eye,
+            .cat-button.playing .cat-paw-left,
+            .cat-button.playing .cat-paw-right,
+            .cat-button.playing .cat-spark {
+                animation-duration: 0.01ms;
+            }
+        }
+
+    </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-grid">
 
@@ -239,12 +376,58 @@
                 <div class="w-[85%] md:w-[600px] h-[220px] md:h-[340px] bg-[#050505] border-[6px] border-[#222] rounded-t-2xl relative overflow-hidden flex items-center justify-center z-10 shadow-[0_-10px_30px_rgba(255,255,255,0.02)]">
                     <div class="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-blue-900/10 opacity-0 screen-glow z-0"></div>
                     
-                    <div class="relative z-10 cat-logo flex flex-col items-center">
-                        <svg class="w-16 h-16 md:w-20 md:h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                    <button type="button" id="cat-button" class="relative z-10 cat-logo cat-button flex flex-col items-center bg-transparent border-0 p-0">
+                        <svg class="w-28 h-24 md:w-32 md:h-28 text-white" viewBox="0 0 140 120" fill="none" aria-label="Gatito ARMAKORE">
+                            <!-- Chispas que aparecen al hacer click -->
+                            <g class="cat-spark" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M15 25v8M11 29h8"/>
+                                <path d="M124 20v8M120 24h8"/>
+                                <path d="M127 86v6M124 89h6"/>
+                                <path d="M18 88v6M15 91h6"/>
+                            </g>
+
+                            <!-- Cola -->
+                            <path class="cat-tail" d="M99 79 C121 85, 124 63, 111 57 C103 53, 103 47, 112 44"
+                                  stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <!-- Cuerpo -->
+                            <path d="M47 78 C47 61, 59 51, 70 51 C83 51, 95 62, 95 78"
+                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+
+                            <!-- Patitas -->
+                            <path class="cat-paw-left" d="M55 75v13c0 5 7 5 7 0v-7"
+                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                            <path class="cat-paw-right" d="M84 75v13c0 5 7 5 7 0v-7"
+                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+
+                            <!-- Cabeza -->
+                            <path d="M46 39 L49 20 L63 29 C68 27, 74 27, 79 29 L93 20 L95 39
+                                     C96 55, 86 65, 70 65 C54 65, 45 55, 46 39Z"
+                                  stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+
+                            <!-- Orejas interiores -->
+                            <path class="cat-ear cat-ear-left" d="M53 25l3 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+                            <path class="cat-ear cat-ear-right" d="M88 25l-3 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+
+                            <!-- Ojos -->
+                            <path class="cat-eye" d="M57 43 Q61 39 65 43" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                            <path class="cat-eye" d="M75 43 Q79 39 83 43" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+
+                            <!-- Nariz / hocico -->
+                            <path d="M68 49 Q70 47 72 49 Q70 52 68 49Z" fill="currentColor"/>
+                            <path d="M70 52 Q67 56 63 54 M70 52 Q73 56 77 54"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+                            <!-- Bigotes -->
+                            <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75">
+                                <path d="M58 50H42"/>
+                                <path d="M58 54L43 57"/>
+                                <path d="M82 50H98"/>
+                                <path d="M82 54L97 57"/>
+                            </g>
                         </svg>
-                        <span class="mt-2 text-[10px] tracking-widest font-bold text-white">ARMAKORE</span>
-                    </div>
+                        <span class="mt-1 text-[10px] tracking-widest font-bold text-white">ARMAKORE</span>
+                    </button>
                     
                     <div class="absolute top-0 left-0 w-full h-[150%] bg-white/5 transform -rotate-45 translate-x-[-50%] translate-y-[-50%]"></div>
                 </div>
@@ -541,6 +724,26 @@
                 cartCount.textContent = config ? '1' : '0';
             }
         });
+
+        /* ==========================================
+           Gatito interactivo
+           ========================================== */
+        const catButton = document.getElementById('cat-button');
+
+        if (catButton) {
+            catButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+
+                // Reinicia la animación para que funcione en cada click.
+                catButton.classList.remove('playing');
+                void catButton.offsetWidth;
+                catButton.classList.add('playing');
+
+                setTimeout(() => {
+                    catButton.classList.remove('playing');
+                }, 900);
+            });
+        }
 
         /* ==========================================
            Interacción del mouse: micro-diseños blancos
