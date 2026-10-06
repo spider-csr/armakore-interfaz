@@ -190,7 +190,11 @@
         }
 
         .cat-button:hover .cat-character {
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.55));
+            filter: drop-shadow(0 0 11px rgba(101,70,245,0.55));
+        }
+
+        .cat-button:hover .cat-spark {
+            opacity: 0.35;
         }
 
         .cat-ear {
@@ -377,56 +381,91 @@
                     <div class="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-blue-900/10 opacity-0 screen-glow z-0"></div>
                     
                     <button type="button" id="cat-button" class="relative z-10 cat-logo cat-button flex flex-col items-center bg-transparent border-0 p-0">
-                        <svg class="w-28 h-24 md:w-32 md:h-28 text-white" viewBox="0 0 140 120" fill="none" aria-label="Gatito ARMAKORE">
-                            <!-- Chispas que aparecen al hacer click -->
-                            <g class="cat-spark" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                                <path d="M15 25v8M11 29h8"/>
-                                <path d="M124 20v8M120 24h8"/>
-                                <path d="M127 86v6M124 89h6"/>
-                                <path d="M18 88v6M15 91h6"/>
+                        <svg class="w-32 h-28 md:w-36 md:h-32" viewBox="0 0 160 135" fill="none" aria-label="Gatito ARMAKORE">
+                            <!-- Chispas -->
+                            <g class="cat-spark" stroke="#ffffff" stroke-width="2" stroke-linecap="round">
+                                <path d="M18 28v9M13.5 32.5h9"/>
+                                <path d="M139 23v9M134.5 27.5h9"/>
+                                <path d="M143 98v7M139.5 101.5h7"/>
+                                <path d="M17 98v7M13.5 101.5h7"/>
                             </g>
 
-                            <!-- Cola -->
-                            <path class="cat-tail" d="M99 79 C121 85, 124 63, 111 57 C103 53, 103 47, 112 44"
-                                  stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <g class="cat-character">
+                                <!-- Cola grande y juguetona -->
+                                <path class="cat-tail"
+                                      d="M116 94 C145 100, 151 72, 134 62 C125 57, 124 49, 137 43"
+                                      stroke="#6546F5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M137 43 C143 40, 145 34, 141 30"
+                                      stroke="#4D35C7" stroke-width="12" stroke-linecap="round"/>
 
-                            <!-- Cuerpo -->
-                            <path d="M47 78 C47 61, 59 51, 70 51 C83 51, 95 62, 95 78"
-                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Cuerpo redondeado -->
+                                <path d="M52 96 C48 73, 61 57, 80 55 C103 53, 120 70, 119 97
+                                         C118 112, 107 120, 87 120 C66 120, 55 112, 52 96Z"
+                                      fill="#6546F5"/>
 
-                            <!-- Patitas -->
-                            <path class="cat-paw-left" d="M55 75v13c0 5 7 5 7 0v-7"
-                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-                            <path class="cat-paw-right" d="M84 75v13c0 5 7 5 7 0v-7"
-                                  stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Sombra del cuerpo -->
+                                <path d="M53 91 C51 106, 61 116, 77 119 C69 111, 70 98, 76 89
+                                         C67 86, 59 87, 53 91Z"
+                                      fill="#5639D7"/>
 
-                            <!-- Cabeza -->
-                            <path d="M46 39 L49 20 L63 29 C68 27, 74 27, 79 29 L93 20 L95 39
-                                     C96 55, 86 65, 70 65 C54 65, 45 55, 46 39Z"
-                                  stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+                                <!-- Patitas -->
+                                <path class="cat-paw-left"
+                                      d="M60 101 C58 110, 58 121, 65 123 L78 123
+                                         C82 123, 83 117, 78 114 L72 110 L72 100Z"
+                                      fill="#5639D7"/>
+                                <path class="cat-paw-right"
+                                      d="M96 102 C99 111, 104 121, 111 122 L122 122
+                                         C126 122, 128 117, 123 114 L115 108 L113 98Z"
+                                      fill="#5639D7"/>
 
-                            <!-- Orejas interiores -->
-                            <path class="cat-ear cat-ear-left" d="M53 25l3 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
-                            <path class="cat-ear cat-ear-right" d="M88 25l-3 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+                                <!-- Cabeza tipo gato cartoon -->
+                                <path d="M48 49 L52 17 L72 31
+                                         C81 27, 92 27, 101 31 L121 17 L125 49
+                                         C128 72, 114 87, 87 88
+                                         C60 87, 46 72, 48 49Z"
+                                      fill="#6546F5"/>
 
-                            <!-- Ojos -->
-                            <path class="cat-eye" d="M57 43 Q61 39 65 43" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
-                            <path class="cat-eye" d="M75 43 Q79 39 83 43" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                                <!-- Sombra inferior de cabeza -->
+                                <path d="M50 65 C56 80, 70 87, 87 88 C104 87, 117 80, 123 65
+                                         C114 74, 101 78, 87 78 C72 78, 59 74, 50 65Z"
+                                      fill="#5A3DDD"/>
 
-                            <!-- Nariz / hocico -->
-                            <path d="M68 49 Q70 47 72 49 Q70 52 68 49Z" fill="currentColor"/>
-                            <path d="M70 52 Q67 56 63 54 M70 52 Q73 56 77 54"
-                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <!-- Orejas interiores -->
+                                <path class="cat-ear cat-ear-left" d="M56 25 L59 48 L72 34Z" fill="#4D35C7"/>
+                                <path class="cat-ear cat-ear-right" d="M117 25 L114 48 L101 34Z" fill="#4D35C7"/>
 
-                            <!-- Bigotes -->
-                            <g stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75">
-                                <path d="M58 50H42"/>
-                                <path d="M58 54L43 57"/>
-                                <path d="M82 50H98"/>
-                                <path d="M82 54L97 57"/>
+                                <!-- Ojos enormes -->
+                                <g class="cat-eye">
+                                    <ellipse cx="68" cy="51" rx="14" ry="17" fill="#ffffff"/>
+                                    <ellipse cx="106" cy="51" rx="14" ry="17" fill="#ffffff"/>
+                                    <ellipse cx="72" cy="54" rx="7" ry="10" fill="#21184F"/>
+                                    <ellipse cx="102" cy="54" rx="7" ry="10" fill="#21184F"/>
+                                    <circle cx="74" cy="49" r="3.2" fill="#ffffff"/>
+                                    <circle cx="104" cy="49" r="3.2" fill="#ffffff"/>
+                                </g>
+
+                                <!-- Hocico -->
+                                <path d="M84 62 Q87 59 90 62 Q87 67 84 62Z" fill="#F4A9C8"/>
+                                <path d="M87 66 Q83 70 79 67 M87 66 Q91 70 95 67"
+                                      stroke="#F7C9DC" stroke-width="2" stroke-linecap="round"/>
+
+                                <!-- Bigotes -->
+                                <g stroke="#F4EFFF" stroke-width="1.7" stroke-linecap="round" opacity="0.9">
+                                    <path d="M77 63 L55 59"/>
+                                    <path d="M77 68 L54 69"/>
+                                    <path d="M97 63 L119 59"/>
+                                    <path d="M97 68 L120 69"/>
+                                </g>
+
+                                <!-- Collar ARMAKORE -->
+                                <path d="M63 82 Q87 91 111 82 L109 91 Q87 100 65 91Z"
+                                      fill="#38268E"/>
+                                <circle cx="87" cy="92" r="8" fill="#F5A623"/>
+                                <path d="M87 89v6 M84.5 92.5h5"
+                                      stroke="#5A2B00" stroke-width="2" stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <span class="mt-1 text-[10px] tracking-widest font-bold text-white">ARMAKORE</span>
+                        <span class="mt-0 text-[10px] tracking-widest font-bold text-white">ARMAKORE</span>
                     </button>
                     
                     <div class="absolute top-0 left-0 w-full h-[150%] bg-white/5 transform -rotate-45 translate-x-[-50%] translate-y-[-50%]"></div>
@@ -730,11 +769,62 @@
            ========================================== */
         const catButton = document.getElementById('cat-button');
 
+        // Maullido sintético: no necesita MP3.
+        // Se genera con Web Audio API después del gesto del usuario.
+        let catAudioContext = null;
+
+        function playCatMeow() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+
+                if (!catAudioContext) {
+                    catAudioContext = new AudioContext();
+                }
+
+                if (catAudioContext.state === 'suspended') {
+                    catAudioContext.resume();
+                }
+
+                const now = catAudioContext.currentTime;
+                const osc = catAudioContext.createOscillator();
+                const gain = catAudioContext.createGain();
+                const filter = catAudioContext.createBiquadFilter();
+
+                osc.type = 'sine';
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(1700, now);
+                filter.Q.setValueAtTime(3, now);
+
+                // Curva de tono para simular un "miau" corto y juguetón.
+                osc.frequency.setValueAtTime(430, now);
+                osc.frequency.exponentialRampToValueAtTime(690, now + 0.10);
+                osc.frequency.exponentialRampToValueAtTime(520, now + 0.25);
+                osc.frequency.exponentialRampToValueAtTime(360, now + 0.42);
+
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(0.16, now + 0.035);
+                gain.gain.exponentialRampToValueAtTime(0.10, now + 0.18);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.46);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(catAudioContext.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.48);
+            } catch (error) {
+                // El sonido es opcional; la animación continúa aunque el navegador lo bloquee.
+                console.debug('Audio del gatito no disponible:', error);
+            }
+        }
+
         if (catButton) {
             catButton.addEventListener('click', function(event) {
                 event.stopPropagation();
 
                 // Reinicia la animación para que funcione en cada click.
+                playCatMeow();
                 catButton.classList.remove('playing');
                 void catButton.offsetWidth;
                 catButton.classList.add('playing');
