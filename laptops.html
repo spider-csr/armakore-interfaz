@@ -39,7 +39,7 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-grid">
 
-    <!-- Navbar -->
+    <!-- Navbar Corregida y Universal -->
     <nav class="fixed top-0 z-50 w-full bg-brand-bg/90 backdrop-blur-md border-b border-brand-border">
         <div class="max-w-[90rem] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 shrink-0">
@@ -50,13 +50,12 @@
             </a>
             
             <div class="hidden xl:flex items-center space-x-6">
-                <!-- Se quitó el subrayado de Inicio y se le puso a Laptops -->
                 <a href="index.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Inicio</a>
-                <a href="laptops.html" class="text-[11px] font-medium text-white border-b border-white pb-1 tracking-wider uppercase">Laptops</a>
-                <a href="#" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Escritorios</a>
-                <a href="#" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Componentes</a>
-                <a href="#" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Personalización PC</a>
-                <a href="#" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Integrantes</a>
+                <a href="laptops.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Laptops</a>
+                <a href="escritorio.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Escritorios</a>
+                <a href="componentes.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Componentes</a>
+                <a href="personalizacion.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Personalización PC</a>
+                <a href="integrantes.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Integrantes</a>
             </div>
             
             <div class="flex items-center space-x-5 shrink-0">
@@ -64,10 +63,10 @@
                     <input type="text" placeholder="Buscar..." class="bg-transparent border-none outline-none text-xs text-white placeholder-gray-600 w-full">
                     <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-               <!-- Reemplaza el <button> del usuario por esto en laptops.html -->
-                 <a href="login.html" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
-                  <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                 </a>
+                <!-- Enlace al login corregido -->
+                <a href="inicio-sesion.html" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </a>
                 <button class="text-gray-400 hover:text-white transition-colors relative group">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
                     <span class="absolute -top-1.5 -right-2 w-4 h-4 bg-white text-black text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
