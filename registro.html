@@ -76,11 +76,12 @@
                 <p class="text-sm text-gray-500">Únete a la revolución modular de ARMAKORE</p>
             </div>
 
-            <form class="space-y-5" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+            <!-- Contenedor de campos sin <form> -->
+            <div class="space-y-5">
                 <!-- Nombre -->
                 <div>
                     <label for="nombre" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Nombre Completo</label>
-                    <input type="text" id="nombre" name="nombre" required 
+                    <input type="text" id="nombre" required 
                         class="w-full bg-[#111] border border-[#222] text-white rounded-lg px-4 py-2.5 outline-none transition-all focus:border-white focus:ring-1 focus:ring-white input-glow"
                         placeholder="Ej. Johan Zari">
                 </div>
@@ -88,7 +89,7 @@
                 <!-- Correo -->
                 <div>
                     <label for="email" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" required 
+                    <input type="email" id="email" required 
                         class="w-full bg-[#111] border border-[#222] text-white rounded-lg px-4 py-2.5 outline-none transition-all focus:border-white focus:ring-1 focus:ring-white input-glow"
                         placeholder="tu@correo.com">
                 </div>
@@ -97,7 +98,7 @@
                 <div>
                     <label for="password" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Contraseña</label>
                     <div class="relative">
-                        <input type="password" id="password" name="password" required 
+                        <input type="password" id="password" required 
                             class="w-full bg-[#111] border border-[#222] text-white rounded-lg px-4 py-2.5 pr-12 outline-none transition-all focus:border-white focus:ring-1 focus:ring-white input-glow"
                             placeholder="••••••••">
                         <button type="button" onclick="togglePassword('password', 'eye-icon-1')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
@@ -113,7 +114,7 @@
                 <div>
                     <label for="verify-password" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Verificar Contraseña</label>
                     <div class="relative">
-                        <input type="password" id="verify-password" name="verify-password" required 
+                        <input type="password" id="verify-password" required 
                             class="w-full bg-[#111] border border-[#222] text-white rounded-lg px-4 py-2.5 pr-12 outline-none transition-all focus:border-white focus:ring-1 focus:ring-white input-glow"
                             placeholder="••••••••">
                         <button type="button" onclick="togglePassword('verify-password', 'eye-icon-2')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
@@ -125,11 +126,11 @@
                     </div>
                 </div>
 
-                <!-- Botón Principal -->
-                <button type="submit" class="w-full bg-white text-black font-bold text-sm py-3.5 rounded-lg hover:bg-gray-200 transition-colors mt-4 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                <!-- Botón Principal (Convertido a enlace para evitar el 405) -->
+                <a href="dashboard.html" class="w-full block text-center bg-white text-black font-bold text-sm py-3.5 rounded-lg hover:bg-gray-200 transition-colors mt-4 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                     Registrarse
-                </button>
-            </form>
+                </a>
+            </div>
 
             <!-- Separador -->
             <div class="flex items-center gap-4 my-6">
