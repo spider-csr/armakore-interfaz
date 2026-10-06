@@ -40,6 +40,33 @@
             background-color: #fff;
             color: #000;
         }
+
+        /* Modal styles */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #0a0a0a 0%, #111 100%);
+        }
+
+        /* Animation para filtros */
+        .filter-item {
+            animation: fadeIn 0.3s ease;
+        }
+
+        .filter-item.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-grid">
@@ -100,7 +127,7 @@
 
     <!-- Catálogo de Laptops -->
     <main class="flex-grow max-w-[90rem] mx-auto px-4 lg:px-8 pb-24 w-full relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="laptop-grid">
 
             <!-- ============ SERIE P - POTENCIA (6 Modelos) ============ -->
             
@@ -147,7 +174,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$2,499</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P16 Max" data-price="2499" data-category="p"
+                            data-cpu="AMD Ryzen 9 / Intel Ultra 9" data-gpu="RTX 4080 12GB" 
+                            data-ram="64GB DDR5" data-storage="2TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -194,7 +226,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,899</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P15 Pro" data-price="1899" data-category="p"
+                            data-cpu="Intel Core i9 14th Gen" data-gpu="RTX 4070 SUPER 8GB" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -241,7 +278,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$3,299</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P17 Studio" data-price="3299" data-category="p"
+                            data-cpu="AMD Ryzen 9 7950X" data-gpu="RTX 4090 16GB" 
+                            data-ram="128GB DDR5" data-storage="4TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -288,7 +330,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,699</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P14 Compact" data-price="1699" data-category="p"
+                            data-cpu="Intel Core i7 14th Gen" data-gpu="RTX 4060 8GB" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -335,7 +382,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$4,999</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P18 Extreme" data-price="4999" data-category="p"
+                            data-cpu="Dual Intel Ultra 9" data-gpu="Dual RTX 4090 32GB" 
+                            data-ram="256GB DDR5" data-storage="8TB NVMe RAID">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -382,7 +434,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
                         <span class="text-lg font-bold text-white">1.4 kg</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                    <button class="btn-comprar bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors" 
+                            data-name="ARMAKORE P15 Air" data-price="1699" data-category="p"
+                            data-cpu="AMD Ryzen 7 7800HS" data-gpu="RTX 4060 8GB" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -431,7 +488,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,599</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H15 Pro" data-price="1599" data-category="h"
+                            data-cpu="Intel Core i7 14th Gen" data-gpu="RTX 4060 8GB" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -478,7 +540,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$899</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H14 Everyday" data-price="899" data-category="h"
+                            data-cpu="AMD Ryzen 5 7530U" data-gpu="Radeon Integrada" 
+                            data-ram="16GB DDR5" data-storage="512GB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -525,7 +592,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,199</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H15 Stream" data-price="1199" data-category="h"
+                            data-cpu="Intel Core i5 13th Gen" data-gpu="RTX 3050 6GB" 
+                            data-ram="16GB DDR5" data-storage="512GB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -572,7 +644,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$749</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H14 Student" data-price="749" data-category="h"
+                            data-cpu="AMD Ryzen 5 7530U" data-gpu="Radeon Integrada" 
+                            data-ram="16GB DDR5" data-storage="512GB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -619,7 +696,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,099</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H16 Media" data-price="1099" data-category="h"
+                            data-cpu="Intel Core i5 13th Gen" data-gpu="RTX 3050 6GB" 
+                            data-ram="16GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -666,7 +748,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
                         <span class="text-lg font-bold text-white">1.2 kg</span>
                     </div>
-                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                    <button class="btn-comprar border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors" 
+                            data-name="ARMAKORE H13 Mini" data-price="799" data-category="h"
+                            data-cpu="AMD Ryzen 5 7530U" data-gpu="Radeon Integrada" 
+                            data-ram="16GB DDR5" data-storage="512GB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -714,7 +801,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,399</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
+                    <button class="btn-comprar bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors" 
+                            data-name="ARMAKORE E14 Business" data-price="1399" data-category="e"
+                            data-cpu="Intel Core i7 vPro 14th" data-gpu="Iris Xe Integrada" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -760,7 +852,12 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,599</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
+                    <button class="btn-comprar bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors" 
+                            data-name="ARMAKORE E15 Executive" data-price="1599" data-category="e"
+                            data-cpu="Intel Core i7 vPro 14th" data-gpu="Iris Xe Integrada" 
+                            data-ram="32GB DDR5" data-storage="1TB NVMe M.2">
+                        Comprar
+                    </button>
                 </div>
             </div>
 
@@ -806,86 +903,7 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
                         <span class="text-lg font-bold text-white">1.1 kg</span>
                     </div>
-                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
-                </div>
-            </div>
-
-            <!-- E15 Workstation -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
-                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E15 Workstation</h2>
-                        <p class="text-xs text-emerald-400 mt-1">Consultoría Técnica</p>
-                    </div>
-                </div>
-                
-                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
-                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
-                    </div>
-                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
-                        Intel Core i7 vPro 14th
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
-                        RTX 4050 6GB
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
-                        32GB DDR5
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
-                        1TB NVMe M.2
-                    </div>
-                </div>
-
-                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
-                    <div>
-                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
-                        <span class="text-lg font-bold text-white">$1,799</span>
-                    </div>
-                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
-                </div>
-            </div>
-
-            <!-- E13 Convertible -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
-                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E13 Convertible</h2>
-                        <p class="text-xs text-emerald-400 mt-1">2-en-1 Profesional</p>
-                    </div>
-                </div>
-                
-                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
-                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
-                    </div>
-                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
-                        Intel Core i5 vPro 13th
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
-                        Iris Xe Integrada
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
-                        16GB LPDDR5
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#222]">
-                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span
+                    <button class="btn-comprar bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors" 
+                            data-name="ARMAKORE E14 Slim" data-price="1199" data-category="e"
+                            data-cpu="AMD Ryzen 7 PRO 7840U" data-gpu="Radeon 780M" 
+                            data-ram="16GB DDR5" data-storage="51
