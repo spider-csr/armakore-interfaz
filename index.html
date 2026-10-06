@@ -72,7 +72,111 @@
         .badge-h { background-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
         .badge-e { background-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
         .badge-a { background-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
-    </style>
+    
+        /* Interacción visual del cursor */
+        .cursor-orb {
+            position: fixed;
+            width: 7px;
+            height: 7px;
+            border: 1px solid rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.12);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: cursorParticle 0.65s ease-out forwards;
+        }
+
+        .cursor-orb::before,
+        .cursor-orb::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            transform: translate(-50%, -50%);
+            opacity: 0.85;
+        }
+
+        .cursor-orb::after {
+            width: 11px;
+            height: 1px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .cursor-orb::before {
+            height: 11px;
+            width: 1px;
+        }
+
+        .cursor-click {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            border: 1px solid rgba(255,255,255,0.95);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0.45);
+            pointer-events: none;
+            z-index: 10000;
+            animation: clickPulse 0.5s ease-out forwards;
+        }
+
+        .cursor-click::before,
+        .cursor-click::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: rgba(255,255,255,0.9);
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-click::before {
+            width: 1px;
+            height: 24px;
+        }
+
+        .cursor-click::after {
+            width: 24px;
+            height: 1px;
+        }
+
+        @keyframes cursorParticle {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+            }
+            20% { opacity: 0.95; }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translateY(-9px) scale(1) rotate(45deg);
+            }
+        }
+
+        @keyframes clickPulse {
+            0% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(0.45);
+            }
+            70% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2.1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor-orb,
+            .cursor-click {
+                animation-duration: 0.01ms;
+            }
+        }
+
+</style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-grid">
 
@@ -437,6 +541,63 @@
                 cartCount.textContent = config ? '1' : '0';
             }
         });
+
+        /* ==========================================
+           Interacción del mouse: micro-diseños blancos
+           ========================================== */
+        let lastParticleTime = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('pointermove', function(event) {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+
+            const now = performance.now();
+
+            // No generar demasiados elementos: mantiene la animación ligera.
+            if (now - lastParticleTime < 55) return;
+            lastParticleTime = now;
+
+            const particle = document.createElement('span');
+            particle.className = 'cursor-orb';
+
+            const offsetX = (Math.random() - 0.5) * 16;
+            const offsetY = (Math.random() - 0.5) * 16;
+
+            particle.style.left = `${mouseX + offsetX}px`;
+            particle.style.top = `${mouseY + offsetY}px`;
+
+            // Pequeñas variaciones para que el patrón no sea totalmente repetitivo.
+            const size = 5 + Math.random() * 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 45}deg)`;
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 700);
+        });
+
+        /* ==========================================
+           Click en espacio vacío: pulso blanco pequeño
+           No interfiere con enlaces, botones o controles.
+           ========================================== */
+        document.addEventListener('pointerdown', function(event) {
+            const clickedInteractive =
+                event.target.closest('a, button, input, textarea, select, label');
+
+            if (clickedInteractive) return;
+
+            const pulse = document.createElement('span');
+            pulse.className = 'cursor-click';
+            pulse.style.left = `${event.clientX}px`;
+            pulse.style.top = `${event.clientY}px`;
+
+            document.body.appendChild(pulse);
+            setTimeout(() => pulse.remove(), 550);
+        });
     </script>
+
 </body>
 </html>
