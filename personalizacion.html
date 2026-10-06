@@ -238,7 +238,7 @@
 
     </main>
 
-    <!-- Script de Interactividad Directa -->
+    <!-- Script de Interactividad Mejorada -->
     <script>
         // Almacenar los precios seleccionados de cada categoría
         const preciosSeleccionados = {
@@ -248,6 +248,23 @@
             ram: 0,
             ssd: 0
         };
+
+        const PRECIO_BASE = 1899;
+
+        function actualizarPrecioTotal() {
+            let total = PRECIO_BASE;
+            for (let cat in preciosSeleccionados) {
+                total += preciosSeleccionados[cat];
+            }
+            const totalPriceEl = document.getElementById('total-price');
+            totalPriceEl.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            // Animación sutil al cambiar precio
+            totalPriceEl.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                totalPriceEl.style.transform = 'scale(1)';
+            }, 150);
+        }
 
         function seleccionarOpcion(elemento, categoria, precio) {
             // 1. Quitar la clase seleccionada a los hermanos de la misma categoría
@@ -262,16 +279,14 @@
             // 3. Guardar el precio de esta categoría
             preciosSeleccionados[categoria] = precio;
 
-            // 4. Calcular el precio total (Base $1,899 + adiciones)
-            let total = 1899;
-            for (let cat in preciosSeleccionados) {
-                total += preciosSeleccionados[cat];
-            }
-
-            // 5. Mostrar en pantalla con formato de dinero
-            const totalPriceEl = document.getElementById('total-price');
-            totalPriceEl.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            // 4. Calcular y mostrar el nuevo precio total
+            actualizarPrecioTotal();
         }
+
+        // Inicializar el precio correcto al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarPrecioTotal();
+        });
     </script>
 </body>
 </html>
