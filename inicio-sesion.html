@@ -137,5 +137,29 @@
         </div>
     </main>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.querySelector('a[href="dashboard.html"]');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+
+    button?.addEventListener('click', event => {
+        if (!email.value.trim() || !password.value.trim()) {
+            event.preventDefault();
+            alert('Completa tu correo y contraseña para continuar.');
+            if (!email.value.trim()) email.focus();
+            else password.focus();
+            return;
+        }
+
+        localStorage.setItem('armakore_user', JSON.stringify({
+            email: email.value.trim(),
+            loggedAt: new Date().toISOString()
+        }));
+    });
+});
+</script>
+
 </body>
 </html>
