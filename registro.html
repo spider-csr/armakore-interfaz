@@ -189,5 +189,37 @@
             }
         }
     </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.querySelector('a[href="dashboard.html"]');
+    const fields = [...document.querySelectorAll('input')];
+
+    button?.addEventListener('click', event => {
+        const invalid = fields.find(input => input.required && !input.value.trim());
+        if (invalid) {
+            event.preventDefault();
+            invalid.focus();
+            alert('Completa los campos obligatorios antes de registrarte.');
+            return;
+        }
+
+        const password = fields.find(input => input.type === 'password');
+        if (password && password.value.length < 8) {
+            event.preventDefault();
+            password.focus();
+            alert('La contraseña debe tener al menos 8 caracteres.');
+            return;
+        }
+
+        localStorage.setItem('armakore_user', JSON.stringify({
+            name: fields[0]?.value?.trim() || 'Usuario ARMAKORE',
+            email: fields.find(input => input.type === 'email')?.value?.trim() || '',
+            registeredAt: new Date().toISOString()
+        }));
+    });
+});
+</script>
+
 </body>
 </html>
