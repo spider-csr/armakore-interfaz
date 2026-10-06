@@ -35,11 +35,16 @@
         .spec-item {
             background: linear-gradient(145deg, #111 0%, #0a0a0a 100%);
         }
+
+        .filter-btn.active {
+            background-color: #fff;
+            color: #000;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-grid">
 
-    <!-- Navbar Corregida y Universal -->
+    <!-- Navbar -->
     <nav class="fixed top-0 z-50 w-full bg-brand-bg/90 backdrop-blur-md border-b border-brand-border">
         <div class="max-w-[90rem] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 shrink-0">
@@ -51,7 +56,7 @@
             
             <div class="hidden xl:flex items-center space-x-6">
                 <a href="index.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Inicio</a>
-                <a href="laptops.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Laptops</a>
+                <a href="laptops.html" class="text-[11px] font-medium text-white border-b border-white pb-1 tracking-wider uppercase">Laptops</a>
                 <a href="escritorio.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Escritorios</a>
                 <a href="componentes.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Componentes</a>
                 <a href="personalizacion.html" class="text-[11px] font-medium text-gray-500 hover:text-white transition-colors tracking-wider uppercase">Personalización PC</a>
@@ -63,44 +68,55 @@
                     <input type="text" placeholder="Buscar..." class="bg-transparent border-none outline-none text-xs text-white placeholder-gray-600 w-full">
                     <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <!-- Enlace al login corregido -->
                 <a href="inicio-sesion.html" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 </a>
-                <button class="text-gray-400 hover:text-white transition-colors relative group">
+                <a href="carrito.html" class="text-gray-400 hover:text-white transition-colors relative group">
                     <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
-                    <span class="absolute -top-1.5 -right-2 w-4 h-4 bg-white text-black text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
-                </button>
+                    <span id="cart-count" class="absolute -top-1.5 -right-2 w-4 h-4 bg-white text-black text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Header del Catálogo -->
-    <header class="pt-32 pb-12 text-center relative z-10 px-4">
+    <header class="pt-32 pb-8 text-center relative z-10 px-4">
         <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">La Evolución Modular</h1>
         <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
             Desde nuestros primeros modelos en 2018 hasta la cima de la ingeniería en 2026. Todos nuestros equipos comparten la misma filosofía: reparar, mejorar y personalizar.
         </p>
     </header>
 
+    <!-- Filtros de Categoría -->
+    <section class="py-6 px-4 relative z-10">
+        <div class="max-w-[90rem] mx-auto flex flex-wrap justify-center gap-3">
+            <button class="filter-btn active bg-white text-black text-xs font-bold px-4 py-2 rounded transition-colors" data-filter="all">Todas</button>
+            <button class="filter-btn bg-[#111] text-white text-xs font-bold px-4 py-2 rounded border border-[#222] hover:border-gray-500 transition-colors" data-filter="p">Serie P (Potencia)</button>
+            <button class="filter-btn bg-[#111] text-white text-xs font-bold px-4 py-2 rounded border border-[#222] hover:border-gray-500 transition-colors" data-filter="h">Serie H (Hogar)</button>
+            <button class="filter-btn bg-[#111] text-white text-xs font-bold px-4 py-2 rounded border border-[#222] hover:border-gray-500 transition-colors" data-filter="e">Serie E (Empresarial)</button>
+            <button class="filter-btn bg-[#111] text-white text-xs font-bold px-4 py-2 rounded border border-[#222] hover:border-gray-500 transition-colors" data-filter="a">Serie A (Ahorro)</button>
+        </div>
+    </section>
+
     <!-- Catálogo de Laptops -->
     <main class="flex-grow max-w-[90rem] mx-auto px-4 lg:px-8 pb-24 w-full relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-            <!-- Modelo 2026: Alta Gama (P) -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300">
+            <!-- ============ SERIE P - POTENCIA (6 Modelos) ============ -->
+            
+            <!-- P16 Max -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
                 <div class="flex justify-between items-start mb-6">
                     <div>
                         <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
                         <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P16 Max</h2>
-                        <p class="text-xs text-gray-500 mt-1">Gama Premium - Creadores</p>
+                        <p class="text-xs text-red-400 mt-1">Gama Premium - Creadores</p>
                     </div>
                 </div>
                 
-                <!-- Laptop CSS (Bordes finos, moderna) -->
                 <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
                     <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/20 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
                     </div>
                     <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
                         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
@@ -131,23 +147,260 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$2,499</span>
                     </div>
-                    <button class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</button>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
                 </div>
             </div>
 
-            <!-- Modelo 2024: Media-Alta (H) -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300">
+            <!-- P15 Pro -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
                 <div class="flex justify-between items-start mb-6">
                     <div>
-                        <span class="text-[10px] font-bold tracking-widest text-gray-400 border border-gray-700 px-2 py-1 rounded">2024</span>
-                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H15 Pro</h2>
-                        <p class="text-xs text-gray-500 mt-1">Alto Rendimiento - Gaming</p>
+                        <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P15 Pro</h2>
+                        <p class="text-xs text-red-400 mt-1">Gama Alta - Gamers</p>
                     </div>
                 </div>
                 
-                <!-- Laptop CSS (Bordes intermedios) -->
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i9 14th Gen
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 4070 SUPER 8GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        32GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,899</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                </div>
+            </div>
+
+            <!-- P17 Studio -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P17 Studio</h2>
+                        <p class="text-xs text-red-400 mt-1">Workstation Móvil</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 9 7950X
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 4090 16GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        128GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        4TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$3,299</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                </div>
+            </div>
+
+            <!-- P14 Compact -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P14 Compact</h2>
+                        <p class="text-xs text-red-400 mt-1">Potencia Portátil</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i7 14th Gen
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 4060 8GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        32GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,699</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                </div>
+            </div>
+
+            <!-- P18 Extreme -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P18 Extreme</h2>
+                        <p class="text-xs text-red-400 mt-1">Reina Suprema</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Dual Intel Ultra 9
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Dual RTX 4090 32GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        256GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        8TB NVMe RAID
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$4,999</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                </div>
+            </div>
+
+            <!-- P15 Air -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="p">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-white bg-white/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE P15 Air</h2>
+                        <p class="text-xs text-red-400 mt-1">Potencia Ultraligera</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[3px] border-[#333] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-red-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-2.5 bg-[#111] border-t border-[#444] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#555] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 7 7800HS
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 4060 8GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        32GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
+                        <span class="text-lg font-bold text-white">1.4 kg</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-white text-black text-xs font-bold px-4 py-2 rounded hover:bg-gray-200 transition-colors">Configurar</a>
+                </div>
+            </div>
+
+            <!-- ============ SERIE H - HOGAR (6 Modelos) ============ -->
+
+            <!-- H15 Pro -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H15 Pro</h2>
+                        <p class="text-xs text-blue-400 mt-1">Gaming Casual</p>
+                    </div>
+                </div>
+                
                 <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
                     <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
                     </div>
                     <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
                         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
@@ -178,23 +431,260 @@
                         <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
                         <span class="text-lg font-bold text-white">$1,599</span>
                     </div>
-                    <button class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Configurar</button>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
                 </div>
             </div>
 
-            <!-- Modelo 2021: Media (E) -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300">
+            <!-- H14 Everyday -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
                 <div class="flex justify-between items-start mb-6">
                     <div>
-                        <span class="text-[10px] font-bold tracking-widest text-gray-500 border border-gray-800 px-2 py-1 rounded">2021</span>
-                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E14</h2>
-                        <p class="text-xs text-gray-500 mt-1">Gama Esencial - Estudiantes</p>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2025</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H14 Everyday</h2>
+                        <p class="text-xs text-blue-400 mt-1">Uso Diario Familiar</p>
                     </div>
                 </div>
                 
-                <!-- Laptop CSS (Bordes un poco gruesos) -->
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 5 7530U
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Radeon Integrada
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        512GB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$899</span>
+                    </div>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- H15 Stream -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H15 Stream</h2>
+                        <p class="text-xs text-blue-400 mt-1">Contenido & Entretenimiento</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i5 13th Gen
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 3050 6GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        512GB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,199</span>
+                    </div>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- H14 Student -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2025</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H14 Student</h2>
+                        <p class="text-xs text-blue-400 mt-1">Estudiantes Universitarios</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 5 7530U
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Radeon Integrada
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        512GB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$749</span>
+                    </div>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- H16 Media -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2025</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H16 Media</h2>
+                        <p class="text-xs text-blue-400 mt-1">Pantalla Grande</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i5 13th Gen
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 3050 6GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,099</span>
+                    </div>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- H13 Mini -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="h">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-blue-400 bg-blue-400/10 px-2 py-1 rounded">2025</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE H13 Mini</h2>
+                        <p class="text-xs text-blue-400 mt-1">Portabilidad Extrema</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[4px] border-[#2a2a2a] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3 bg-[#111] border-t border-[#333] rounded-b-md relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-[#444] rounded-b"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 5 7530U
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Radeon Integrada
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        512GB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
+                        <span class="text-lg font-bold text-white">1.2 kg</span>
+                    </div>
+                    <a href="personalizacion.html" class="border border-white text-white text-xs font-bold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- ============ SERIE E - EMPRESARIAL (6 Modelos) ============ -->
+
+            <!-- E14 Business -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E14 Business</h2>
+                        <p class="text-xs text-emerald-400 mt-1">Profesional Ejecutivo</p>
+                    </div>
+                </div>
+                
                 <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
                     <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
                     </div>
                     <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
                     </div>
@@ -203,79 +693,199 @@
                 <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
                     <div class="spec-item p-2 rounded border border-[#222]">
                         <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
-                        AMD Ryzen 5 5500U
+                        Intel Core i7 vPro 14th
                     </div>
                     <div class="spec-item p-2 rounded border border-[#222]">
                         <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
-                        Radeon Integrada
+                        Iris Xe Integrada
                     </div>
                     <div class="spec-item p-2 rounded border border-[#222]">
                         <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
-                        16GB DDR4
+                        32GB DDR5
                     </div>
                     <div class="spec-item p-2 rounded border border-[#222]">
                         <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
-                        512GB SSD M.2
+                        1TB NVMe M.2
                     </div>
                 </div>
 
                 <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
                     <div>
-                        <span class="block text-[10px] text-gray-500 uppercase">Precio ref.</span>
-                        <span class="text-lg font-bold text-white">$799</span>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,399</span>
                     </div>
-                    <button class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Detalles</button>
+                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
                 </div>
             </div>
 
-            <!-- Modelo 2018: El origen (A) -->
-            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 opacity-80 hover:opacity-100">
+            <!-- E15 Executive -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
                 <div class="flex justify-between items-start mb-6">
                     <div>
-                        <span class="text-[10px] font-bold tracking-widest text-gray-600 border border-gray-800 bg-[#050505] px-2 py-1 rounded">2018</span>
-                        <h2 class="text-xl font-bold text-gray-300 mt-3">ARMAKORE A13</h2>
-                        <p class="text-xs text-gray-600 mt-1">El Pionero - Legado</p>
+                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E15 Executive</h2>
+                        <p class="text-xs text-emerald-400 mt-1">Alta Dirección</p>
                     </div>
                 </div>
                 
-                <!-- Laptop CSS (Bordes muy gruesos, diseño antiguo) -->
                 <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
-                    <div class="w-[85%] aspect-video bg-[#0a0a0a] border-[8px] border-[#1a1a1a] rounded-t-lg relative flex items-center justify-center">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
                     </div>
-                    <div class="w-[95%] h-4 bg-[#222] border-t border-[#111] rounded-b-md relative">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-500 flex-grow">
-                    <div class="spec-item p-2 rounded border border-[#1a1a1a]">
-                        <span class="block text-[9px] uppercase text-gray-700 font-bold mb-1">CPU</span>
-                        Intel Core i5 8va Gen
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#1a1a1a]">
-                        <span class="block text-[9px] uppercase text-gray-700 font-bold mb-1">GPU</span>
-                        UHD Graphics 620
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#1a1a1a]">
-                        <span class="block text-[9px] uppercase text-gray-700 font-bold mb-1">RAM (Modular)</span>
-                        8GB DDR4
-                    </div>
-                    <div class="spec-item p-2 rounded border border-[#1a1a1a]">
-                        <span class="block text-[9px] uppercase text-gray-700 font-bold mb-1">Almacenamiento</span>
-                        256GB SATA SSD
+                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
                     </div>
                 </div>
 
-                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#1a1a1a]">
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i7 vPro 14th
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Iris Xe Integrada
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        32GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
                     <div>
-                        <span class="block text-[10px] text-gray-600 uppercase">Mercado usado</span>
-                        <span class="text-lg font-bold text-gray-400">~$350</span>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,599</span>
                     </div>
-                    <button class="text-gray-500 text-xs font-bold px-2 py-2 hover:text-white transition-colors">Archivado &rarr;</button>
+                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
                 </div>
             </div>
 
-        </div>
-    </main>
+            <!-- E14 Slim -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E14 Slim</h2>
+                        <p class="text-xs text-emerald-400 mt-1">Negocios Portátiles</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
+                    </div>
+                </div>
 
-</body>
-</html>
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        AMD Ryzen 7 PRO 7840U
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Radeon 780M
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        512GB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Peso</span>
+                        <span class="text-lg font-bold text-white">1.1 kg</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- E15 Workstation -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E15 Workstation</h2>
+                        <p class="text-xs text-emerald-400 mt-1">Consultoría Técnica</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i7 vPro 14th
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        RTX 4050 6GB
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        32GB DDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span>
+                        1TB NVMe M.2
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-auto pt-4 border-t border-[#222]">
+                    <div>
+                        <span class="block text-[10px] text-gray-500 uppercase">Precio desde</span>
+                        <span class="text-lg font-bold text-white">$1,799</span>
+                    </div>
+                    <a href="personalizacion.html" class="bg-[#222] text-white border border-[#444] text-xs font-bold px-4 py-2 rounded hover:bg-[#333] transition-colors">Ver Más</a>
+                </div>
+            </div>
+
+            <!-- E13 Convertible -->
+            <div class="bg-brand-surface border border-brand-border rounded-xl p-6 flex flex-col card-hover transition-all duration-300 filter-item" data-category="e">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] font-bold tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">2026</span>
+                        <h2 class="text-xl font-bold text-white mt-3">ARMAKORE E13 Convertible</h2>
+                        <p class="text-xs text-emerald-400 mt-1">2-en-1 Profesional</p>
+                    </div>
+                </div>
+                
+                <div class="w-full flex flex-col items-center justify-center py-6 mb-6">
+                    <div class="w-[85%] aspect-video bg-[#050505] border-[6px] border-[#222] rounded-t-lg relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-transparent"></div>
+                    </div>
+                    <div class="w-[95%] h-3.5 bg-[#151515] border-t border-[#2a2a2a] rounded-b-md relative">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mb-6 text-xs text-gray-400 flex-grow">
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">CPU</span>
+                        Intel Core i5 vPro 13th
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">GPU</span>
+                        Iris Xe Integrada
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">RAM (Modular)</span>
+                        16GB LPDDR5
+                    </div>
+                    <div class="spec-item p-2 rounded border border-[#222]">
+                        <span class="block text-[9px] uppercase text-gray-600 font-bold mb-1">Almacenamiento</span
